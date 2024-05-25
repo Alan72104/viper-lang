@@ -4,11 +4,13 @@
 #include "parser/Parser.h"
 
 #include "parser/ast/expression/BinaryExpression.h"
+#include "parser/ast/expression/IntegerLiteral.h"
 #include "parser/ast/expression/UnaryExpression.h"
 #include "parser/ast/expression/BooleanLiteral.h"
 #include "parser/ast/expression/NullptrLiteral.h"
 #include "parser/ast/expression/CastExpression.h"
 #include "parser/ast/expression/ScopeResolution.h"
+#include "parser/ast/expression/VariableExpression.h"
 #include "parser/ast/statement/BreakStatement.h"
 #include "parser/ast/statement/ContinueStatement.h"
 
@@ -1077,7 +1079,28 @@ namespace parser
         expectToken(lexing::TokenType::LeftParen);
         consume();
 
-        Type* type = parseType();
+        Type* type = parseType(true);
+
+        if (!type)
+        {
+            ASTNodePtr expr = parseExpression();
+            type = expr->getType();
+        }
+
+        // if (!type)
+        // {
+        //     ASTNodePtr expr = parseExpression();
+        //     if (dynamic_cast<IntegerLiteral*>(expr.get()) ||
+        //         dynamic_cast<BooleanLiteral*>(expr.get()) ||
+        //         dynamic_cast<VariableExpression*>(expr.get()))
+        //     {
+        //         type = expr->getType();
+        //     }
+        //     else
+        //     {
+        //         mDiag.compilerError(token.getStart(), token.getEnd(), std::format("Expression not allowed in sizeof"));
+        //     }
+        // }
 
         expectToken(lexing::TokenType::RightParen);
         consume();
