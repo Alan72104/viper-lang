@@ -178,6 +178,10 @@ namespace parser
             case lexing::TokenType::Minus:
                 return 70;
 
+            case lexing::TokenType::LeftShift:
+            case lexing::TokenType::RightShift:
+                return 65;
+
             case lexing::TokenType::LessThan:
             case lexing::TokenType::GreaterThan:
             case lexing::TokenType::LessEqual:

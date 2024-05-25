@@ -41,6 +41,15 @@ namespace parser
                 mType = mLeft->getType();
                 break;
 
+            case lexing::TokenType::LeftShift:
+                mOperator = Operator::BitwiseLeftShift;
+                mType = mLeft->getType();
+                break;
+            case lexing::TokenType::RightShift:
+                mOperator = Operator::BitwiseRightShift;
+                mType = mLeft->getType();
+                break;
+
             case lexing::TokenType::Pipe:
                 mOperator = Operator::BitwiseOr;
                 mType = mLeft->getType();
@@ -131,6 +140,8 @@ namespace parser
             case Operator::Sub:
             case Operator::Mul:
             case Operator::Div:
+            // case Operator::BitwiseLeftShift:
+            // case Operator::BitwiseRightShift:
             case Operator::BitwiseAnd:
             case Operator::BitwiseOr:
             case Operator::BitwiseXor:
@@ -204,6 +215,11 @@ namespace parser
                     return builder.CreateUDiv(left, right);
                 }
                 break; // TODO: Error?
+
+            case Operator::BitwiseLeftShift:
+                return builder.CreateULShift(left, right);
+            case Operator::BitwiseRightShift:
+                return builder.CreateURShift(left, right);
 
             case Operator::BitwiseOr:
                 return builder.CreateBWOr(left, right);

@@ -70,6 +70,10 @@ namespace lexing
                 return "-";
             case TokenType::Slash:
                 return "/";
+            case TokenType::LeftShift:
+                return "<<";
+            case TokenType::RightShift:
+                return ">>";
             case TokenType::PlusEquals:
                 return "+=";
             case TokenType::MinusEquals:

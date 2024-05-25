@@ -19,10 +19,12 @@ namespace parser
             Mul, Div,
 
             BitwiseOr, BitwiseAnd, BitwiseXor,
+            BitwiseLeftShift, BitwiseRightShift,
 
             Equal, NotEqual,
             LessThan, GreaterThan,
             LessEqual, GreaterEqual,
+
 
             Assign,
             AddAssign, SubAssign,

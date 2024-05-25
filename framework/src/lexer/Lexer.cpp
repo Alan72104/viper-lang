@@ -266,12 +266,22 @@ namespace lexing
                     consume();
                     return Token(TokenType::LessEqual, start, location());
                 }
+                else if (peek(1) == '<')
+                {
+                    consume();
+                    return Token(TokenType::LeftShift, start, location());
+                }
                 return Token(TokenType::LessThan, start, location());
             case '>':
                 if (peek(1) == '=')
                 {
                     consume();
                     return Token(TokenType::GreaterEqual, start, location());
+                }
+                else if (peek(1) == '>')
+                {
+                    consume();
+                    return Token(TokenType::RightShift, start, location());
                 }
                 return Token(TokenType::GreaterThan, start, location());
 
